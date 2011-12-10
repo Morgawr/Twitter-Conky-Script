@@ -1,1 +1,24 @@
-Testing
+
+
+This is a conky/awk script used to output Twidge updates (CLI client for Twitter)
+straight on your own desktop/background. It uses conky ( http://conky.sourceforge.net/ )
+and Awk ( http://en.wikipedia.org/wiki/AWK ) to output the updates straight from
+your twitter page using Twidge ( https://github.com/jgoerzen/twidge/wiki ).
+
+
+HOW TO USE:
+
+Just install twidge and conky, use the command "twidge setup" (read the man page 
+for more details) to connect your twitter account. Then put both .conkyrc and .conkyawk
+files in your /home/<username> folder (where <username> is your system's user account)
+and launch conky. Add it to your autostart programs if you need.
+
+CUSTOMIZATION:
+
+This script runs an interface that is optimized for my own desktop and color theme,
+feel free to modify it and fix it as much as you like, everything is free and open :)
+
+
+AUTHOR:
+
+You can find me @ http://morgawr.not-a-number.net or mail me at morgawr@gmail.com
