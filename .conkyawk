@@ -1,0 +1,83 @@
+#!/usr/bin/awk -f
+BEGIN { 
+	#Global settings
+	
+	lines = 0;
+	name = "";
+
+	#How many tweets you want as output (be careful not to go past the color array size!!)
+	maxlines = 13
+
+	#Your twitter username here
+	username="username";
+	
+	#COLOR TABLE (IF YOU CHANGE MAX LINES YOU NEED TO CHANGE THIS)
+	color[1] = "white"
+	color[2] = "F2F2F2"
+	color[3] = "F2F2F2" 
+	color[4] = "F2F2F2" 
+	color[5] = "D8D8D8"
+	color[6] = "D8D8D8"
+	color[7] = "A4A4A4"
+	color[8] = "A4A4A4"
+	color[9] = "848484"
+	color[10] = "6E6E6E"
+	color[11] = "585858"
+	color[12] = "2E2E2E"
+	color[13] = "1C1C1C"	
+	#END COLOR TABLE
+	
+	#OLD STUFF
+	#oddline_color = "858585";
+	#evenline_color = "white";
+	#END OLD STUFF
+
+	alert_color = "FAAC58";
+	title_color = "#ddaa00";
+	used_color = color[1];
+	
+	
+	
+	# Initialization of the script
+	print "${color black}${hr}"
+	printf "${color %s}${font Monospace:size=16}Latest tweets:\n",title_color;
+	printf "${font Monospace:size=9}";
+	
+}
+
+
+{
+	
+	if($LINE ~ /<.+>/)
+	{
+		if(lines != 0 || lines+1 > maxlines)
+		{
+			print "\t\t\t\t\t\t\t",name;
+			printf "${color %s}${hr}${color %s}\n",color[lines],used_color;
+		}
+			
+		lines++;
+		
+		if( lines > maxlines)
+			exit;
+			
+		used_color = color[lines];
+			
+		firstindex = index($LINE,"<");
+		secondindex = index($LINE,">");
+		
+		name = substr($LINE,firstindex,secondindex);
+		gsub(/</,"",name);
+		gsub(/>/,"",name);
+		sub(/<.+>/,"",$LINE);
+	}
+	myline = $LINE;
+	
+	gsub(/(#)/,"\\#",myline);
+	gsub(/^ /,"",myline);
+	gsub(/ $/,"",myline);
+	if(index(myline,username) > 0)
+		used_color = alert_color;
+	
+	printf "${color %s}%s\n",used_color,myline;
+}
